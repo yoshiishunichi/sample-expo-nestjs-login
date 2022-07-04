@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { TwitterApi } from 'twitter-api-v2';
-import { consumer_key, consumer_secret } from './utils/datas';
+import { appKey, appSecret } from './utils/datas';
 
 @Injectable()
 export class AppService {
   getClient() {
     return new TwitterApi({
-      appKey: consumer_key,
-      appSecret: consumer_secret,
+      appKey,
+      appSecret,
     });
   }
 
@@ -23,8 +23,8 @@ export class AppService {
     oauth_verifier: string,
   ) {
     const twitter = new TwitterApi({
-      appKey: access_token_key,
-      appSecret: access_token_secret,
+      appKey,
+      appSecret,
       accessToken: access_token_key,
       accessSecret: access_token_secret,
     });
