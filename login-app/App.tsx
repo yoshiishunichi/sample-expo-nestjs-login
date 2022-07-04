@@ -1,14 +1,30 @@
 import { StatusBar } from "expo-status-bar";
+import { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { twitterLogin } from "./lib/twitter";
+import { AccountInformation } from "./types";
 
 export default function App() {
+  const [accountInfo, setAccountInfo] = useState<AccountInformation>();
+
+  const onPressLoginButton = async () => {
+    setAccountInfo(await twitterLogin());
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
       <Text>ボタンを押してログインしてね。</Text>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity onPress={onPressLoginButton} style={styles.button}>
         <Text style={styles.buttonLabel}>Login</Text>
       </TouchableOpacity>
+      {accountInfo && (
+        <View>
+          <Text>{accountInfo.screenName}</Text>
+          <Text>{accountInfo.accessToken}</Text>
+          <Text>{accountInfo.accessSecret}</Text>
+        </View>
+      )}
     </View>
   );
 }
