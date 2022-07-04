@@ -1,4 +1,4 @@
-import { Controller, Get, Req } from '@nestjs/common';
+import { Controller, Get, Post, Req } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Request } from 'express';
 
@@ -21,5 +21,11 @@ export class AppController {
       oauth_token_secret as string,
       oauth_verifier as string,
     );
+  }
+
+  @Post('tweet')
+  async postTweet(@Req() request: Request) {
+    const { accessToken, accessSecret, text } = request.body;
+    await this.appService.postTweet(accessToken, accessSecret, text);
   }
 }

@@ -37,4 +37,14 @@ export class AppService {
       accessSecret,
     };
   }
+
+  async postTweet(accessToken: string, accessSecret: string, text: string) {
+    const twitter = new TwitterApi({
+      appKey,
+      appSecret,
+      accessToken,
+      accessSecret,
+    });
+    await twitter.v1.tweet(text);
+  }
 }
